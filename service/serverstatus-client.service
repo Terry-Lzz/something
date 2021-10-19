@@ -1,0 +1,18 @@
+[Unit]
+Description=Start or stop the Serverstatus server
+After=rc-local.service
+After=network.target
+Wants=network.target
+
+
+[Service]
+#ExecStartPre=-/bin/sleep 60
+Type=idle
+User=root
+Group=root
+WorkingDirectory=/code
+ExecStart=/usr/bin/python3 /code/client-linux.py USER=user PASSWORD=password SERVER=server PORT=port >/dev/null 2>&1
+Restart=always
+LimitNOFILE=512000
+[Install]
+WantedBy=multi-user.target
